@@ -2,7 +2,7 @@ package com.example.myapplication;
 
 import android.net.Uri;
 
-public class Song {
+public class Song implements Media{
     long songID;
     String songName;
     String artist;
