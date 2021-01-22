@@ -22,21 +22,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 
 import java.net.URI;
 import java.util.ArrayList;
 
-import FirebaseDatabase.Demo;
+
 
 public class MainActivity extends AppCompatActivity {
-    DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference child= mRootRef.child("Name");
     TextView whoIsView;
     ArrayList<Song> songArrayList;
     ArrayAdapter<Song> adapter;
@@ -48,14 +41,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
-            if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)){
-                ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
-            }else{
-                ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);            }
-        }else{
-            init();
-        }
+        init();
+//        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+//            if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)){
+//                ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
+//            }else{
+//                ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);            }
+//        }else{
+//            init();
+//        }
     }
 
 
@@ -92,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
     public void init(){
         songList=(ListView)findViewById(R.id.songList);
         songArrayList= new ArrayList<>();
+        TextView tv= (TextView)findViewById(R.id.testView);
+        tv.setText("It worked");
         getMusic();
         adapter= new ArrayAdapter<Song>(this,android.R.layout.simple_list_item_1,songArrayList);
         songList.setAdapter(adapter);
