@@ -3,10 +3,10 @@ package com.example.myapplication;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MediaStore {
+public class AppMediaStore {
     private HashMap<String,ArrayList<Media>> mediaMap;
 
-    public MediaStore(){
+    public AppMediaStore(){
         mediaMap= new HashMap<>(10);
         mediaMap.put("songs",new ArrayList<Media>());
         mediaMap.put("videos",new ArrayList<Media>());
