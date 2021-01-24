@@ -111,34 +111,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    protected void onStart(){
-//        super.onStart();
-//        child.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                String text= snapshot.getValue(String.class);
-//                child.setValue(text);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//        jeffButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                child.setValue("Jeff");
-//                whoIsView.setText("Jeff");
-//            }
-//        });
-//        johnButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                child.setValue("John");
-//                whoIsView.setText("John");
-//            }
-//        });
-//    }
+
 }
