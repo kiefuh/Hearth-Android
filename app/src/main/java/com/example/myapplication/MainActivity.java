@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         ContentResolver contentResolver= getContentResolver();
         Uri songURI = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         Cursor songCursor = null;
-        songCursor=contentResolver.query(songURI,null,null,null);
+        songCursor=contentResolver.query(songURI,null,null,null,null);
 
 
         if(songCursor!=null && songCursor.moveToFirst()){
