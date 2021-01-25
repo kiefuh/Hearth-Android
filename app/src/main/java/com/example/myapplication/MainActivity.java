@@ -79,6 +79,58 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void getImages(){
+        ContentResolver contentResolver = getContentResolver();
+        Uri photoURI = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        Cursor imageCursor = null;
+        imageCursor = contentResolver.query(photoURI, null, null, null, null);
+
+
+        if (imageCursor != null && imageCursor.moveToFirst()) {
+            int imageTitle = imageCursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME);
+            int imageArtist = imageCursor.getColumnIndex(MediaStore.Images.Media.AUTHOR);;
+            int imageID = imageCursor.getColumnIndex(MediaStore.Images.Media._ID);
+
+            do {
+                String currentTitle = imageCursor.getString(imageTitle);
+                String currentArtist = imageCursor.getString(imageArtist);
+                long currentID = imageCursor.getLong(imageID);
+                Image image = new Image(currentTitle, currentArtist, currentID);
+                System.out.println(currentTitle);
+            } while (imageCursor.moveToNext());
+
+
+        }
+    }
+
+    public void getVideo(){
+        ContentResolver contentResolver = getContentResolver();
+        Uri photoURI = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+        Cursor videoCursor = null;
+        videoCursor = contentResolver.query(photoURI, null, null, null, null);
+
+
+        if (videoCursor != null && videoCursor.moveToFirst()) {
+            int songTitle = videoCursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
+            int songArtist = videoCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
+            int songLength = videoCursor.getColumnIndex(MediaStore.Audio.Media.DURATION);
+            int songID = videoCursor.getColumnIndex(MediaStore.Audio.Media._ID);
+
+            do {
+                String currentTitle = videoCursor.getString(songTitle);
+                String currentArtist = videoCursor.getString(songArtist);
+                String currentLength = videoCursor.getString(songLength);
+                long currentID = videoCursor.getLong(songID);
+                Song song = new Song(currentID, currentTitle, currentArtist);
+                System.out.println(currentTitle);
+                songArrayList.add(song);
+
+            } while (videoCursor.moveToNext());
+
+
+        }
+    }
+
     public void init() {
         songList = (ListView) findViewById(R.id.songList);
         songArrayList = new ArrayList<>();
