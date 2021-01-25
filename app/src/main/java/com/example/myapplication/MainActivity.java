@@ -23,10 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
 import java.net.URI;
 import java.util.ArrayList;
-
 
 
 public class MainActivity extends AppCompatActivity {
@@ -53,56 +51,55 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    public void getMusic(){
-        ContentResolver contentResolver= getContentResolver();
+    public void getMusic() {
+        ContentResolver contentResolver = getContentResolver();
         Uri songURI = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         Cursor songCursor = null;
-        songCursor=contentResolver.query(songURI,null,null,null,null);
+        songCursor = contentResolver.query(songURI, null, null, null, null);
 
 
-        if(songCursor!=null && songCursor.moveToFirst()){
-            int songTitle= songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
-            int songArtist= songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
-            int songLength= songCursor.getColumnIndex(MediaStore.Audio.Media.DURATION);
-            int songID= songCursor.getColumnIndex(MediaStore.Audio.Media._ID);
+        if (songCursor != null && songCursor.moveToFirst()) {
+            int songTitle = songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
+            int songArtist = songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
+            int songLength = songCursor.getColumnIndex(MediaStore.Audio.Media.DURATION);
+            int songID = songCursor.getColumnIndex(MediaStore.Audio.Media._ID);
 
-            do{
-                String currentTitle= songCursor.getString(songTitle);
-                String currentArtist=songCursor.getString(songArtist);
-                String currentLength=songCursor.getString(songLength);
+            do {
+                String currentTitle = songCursor.getString(songTitle);
+                String currentArtist = songCursor.getString(songArtist);
+                String currentLength = songCursor.getString(songLength);
                 long currentID = songCursor.getLong(songID);
-                Song song = new Song(currentID,currentTitle,currentArtist);
+                Song song = new Song(currentID, currentTitle, currentArtist);
                 System.out.println(currentTitle);
                 songArrayList.add(song);
 
-            }while(songCursor.moveToNext());
+            } while (songCursor.moveToNext());
 
 
         }
 
     }
 
-    public void init(){
-        songList=(ListView)findViewById(R.id.songList);
-        songArrayList= new ArrayList<>();
-        TextView tv= (TextView)findViewById(R.id.testView);
+    public void init() {
+        songList = (ListView) findViewById(R.id.songList);
+        songArrayList = new ArrayList<>();
+        TextView tv = (TextView) findViewById(R.id.testView);
         tv.setText("It worked");
         getMusic();
-        adapter= new ArrayAdapter<Song>(this,android.R.layout.simple_list_item_1,songArrayList);
+        adapter = new ArrayAdapter<Song>(this, android.R.layout.simple_list_item_1, songArrayList);
         songList.setAdapter(adapter);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,int[] grantResults){
-        switch (requestCode){
-            case 1:{
-                if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                    if(ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
-                        Toast.makeText(this,"Permission granted!",Toast.LENGTH_SHORT).show();
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(this, "Permission granted!", Toast.LENGTH_SHORT).show();
                         init();
-                    }else{
-                        Toast.makeText(this,"No permission granted",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "No permission granted", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                     return;
